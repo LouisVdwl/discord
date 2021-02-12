@@ -61,7 +61,6 @@ input{
 
 #divInputMessage{
     justify-content: center;
-    align-items: center;
 }
 
 #messageInput{
@@ -72,10 +71,15 @@ input{
     width: 95%;
     border: unset;
     height: 70%;
+    align-items: center;
 }
 
 textarea{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+textarea:focus{
+    outline: none !important;
 }
 
 #rightPart .entete{
