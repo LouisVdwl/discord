@@ -1,0 +1,88 @@
+*{
+    margin: unset;
+}
+
+body{
+    width: 100%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.flex{
+    display: flex;
+}
+
+#leftPart{
+    height: 100vh;
+    width: 20%;
+    background-color: #2f3136;
+    flex-direction: column;
+}
+
+div{
+    display: flex;
+}
+
+#rightPart{
+    background-color: #36393f;
+    width: 80%;
+    height: 100vh;
+    flex-direction: column;
+}
+
+#content{
+    justify-content: center;
+    flex-direction: row;
+}
+
+.entete{
+    height: 6vh;
+    justify-content: center;
+    -webkit-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.445);
+    -moz-box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.432);
+    box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.445);
+}
+input{
+    padding: 5px;
+    margin: 10px;
+    border: unset;
+    color: #d1d1d1;
+    background-color: #202225;
+    border-radius: 5px;
+    width: 80%;
+}
+
+#contentMessage{
+    height: 85vh;
+    overflow-y: scroll;
+    flex-direction: column;
+    color: white;
+}
+
+#divInputMessage{
+    justify-content: center;
+    align-items: center;
+}
+
+#messageInput{
+    resize: none;
+    color: #d1d1d1;
+    background-color: #40444b;
+    border-radius: 5px;
+    width: 95%;
+    border: unset;
+    height: 70%;
+}
+
+textarea{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#rightPart .entete{
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.entete h3{
+    padding-left: 10px;
+    color: white;
+}
