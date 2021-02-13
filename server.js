@@ -14,47 +14,29 @@ const serve = serveStatic("./");
 // Création du serveur
 const server = http.createServer(function(req, res) {
     serve(req, res, finalhandler(req, res)); // Traitement de la requête par le middleware
-
-
 });
 // Lancement
 server.listen(8080, function() {
     console.log('Lancement du serveur sur http://localhost:8080');
 });
 // Chargement de socket.io
-let io = require('socket.io').listen(server);
+const io = require('socket.io')();
+io.listen(server);
 
 // Evenements    
 // Connexion
 
 io.sockets.on('connection', function(socket){
-    // Connection d'un client
-    socket.on('connection', function(pseudo, aide, etudiant){
-
-        listeClients.push(socket.id);
-        client[socket.id] = new Client(socket.id, pseudo, aide, etudiant);
-        console.log(client[socket.id]);
+    socket.on("msg", function(msg){
+        socket.broadcast.emit("msg", msg);
+        socket.emit("msg", msg);
     });
-
-    socket.on('envoie', function(message){
-        var i = 0;
-        listeClients.forEach(function(cli){
-            if(client[cli].aide == client[socket.id].aide){
-                i ++;
-            }
-        })
-        socket.broadcast.emit('envoie', message, client[socket.id].pseudo, client[socket.id].etudiant, client[socket.id].aide, i);
-        socket.emit('envoie', message, 'moi', client[socket.id].etudiant, client[socket.id].aide, i);
-    });
-
 });
 
 // Construteur de client
-function Client(id, pseudo, aide, etudiant){
+function Client(id, pseudo){
     this.id = id;
     this.pseudo = pseudo;
-    this.aide = aide;
-    this.etudiant = etudiant;
 }
 
 

@@ -1,10 +1,13 @@
+let socket = io.connect('http://localhost:8080');
 $(document).ready(function(){
     $("#messageInput").keypress(function(e){
-        console.log(e.which);
-        if(e.which == 13){
+        if(e.which == 13 && e.shiftKey == false){
             e.preventDefault();
-            $("#contentMessage").html($("#contentMessage").html() + "<p>" + $("#messageInput").val() + "</p>");
+            socket.emit("msg", $("#messageInput").val());
             $("#messageInput").val("");
         }
+    });
+    socket.on("msg", function(msg){
+        $("#contentMessage").html($("#contentMessage").html() + "<p>" + msg + "</p>");
     });
 });
