@@ -2,6 +2,7 @@ const http = require("http");
 const finalhandler = require("finalhandler");
 const serveStatic = require("serve-static");
 var url = require('url');
+const mysql = require("mysql");
 // Liste des clients connectés
 let listeClients = [];
 
@@ -15,6 +16,32 @@ const serve = serveStatic("./");
 const server = http.createServer(function(req, res) {
     serve(req, res, finalhandler(req, res)); // Traitement de la requête par le middleware
 });
+
+// Connexion à la bdd
+const bdd = mysql.createConnection({
+
+    host: "localhost",
+ 
+    user: "root",
+ 
+    password: "",
+
+    database : "discord"
+ 
+});
+
+
+bdd.connect(function(err) {
+
+    if (err) throw err;
+ 
+    console.log("Connecté à la base de données MySQL!");
+
+ 
+});
+
+
+
 // Lancement
 server.listen(8080, function() {
     console.log('Lancement du serveur sur http://localhost:8080');
@@ -30,6 +57,8 @@ io.sockets.on('connection', function(socket){
     socket.on("msg", function(msg){
         socket.broadcast.emit("msg", msg);
         socket.emit("msg", msg);
+        bdd.query("insert into msg(sender_id, value) values('"+ 0 + "' ,'"+msg+"')");
+
     });
 });
 
