@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Connexion</title>
+  <title>Inscription</title>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,32 +20,33 @@
     <div class="logoContainer"><img class="logo" src="https://seeklogo.com/images/D/discord-logo-134E148657-seeklogo.com.png"/><img class="text" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Discord_Color_Text_Logo.svg/2000px-Discord_Color_Text_Logo.svg.png"/></div>
     <div class="acceptContainer">
       <form>
-        <h1>Connecte-toi !</h1>
+        <h1>Inscription</h1>
         <div class="formContainer">
           <div class="formDiv">
+            <p>Pseudo</p>
+            <input type="text" required=""/>
+          </div>
+          <div class="formDiv">
             <p>EMAIL</p>
-            <input type="email" required=""/>
+            <input type="email" id="mail" required=""/>
           </div>
           <div class="formDiv">
             <p>Mot de passe</p>
-            <input type="password" required=""/>
+            <input type="password" id="pass1" required=""/>
           </div>
           <div class="formDiv">
-            <button class="acceptBtn" type="submit">Connexion</button><span class="register">Tu n'as pas de compte ?<a href="inscription.html">Inscription</a></span>
+            <p>Confirmer le mot de passe</p>
+            <input type="password" id="pass2" required=""/>
+          </div>
+          <div class="formDiv">
+            <button class="acceptBtn" type="submit" id="submitInscription">Inscription</button><span class="register">Déjà un compte ?<a href="index.html">Connexion</a></span>
           </div>
         </div>
       </form>
     </div>
   </div>
 </div>
-  
-  
-
-    <script  src="SCRIPTS/connexion.js"></script>
-
-
-
-
+    <script  src="SCRIPTS/inscription.js"></script>
 </body>
 
 </html>

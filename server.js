@@ -57,7 +57,7 @@ io.sockets.on('connection', function(socket){
     socket.on("msg", function(msg){
         socket.broadcast.emit("msg", msg);
         socket.emit("msg", msg);
-        bdd.query("insert into msg(sender_id, value) values('"+ 0 + "' ,'"+msg+"')");
+        bdd.query("insert into dis_msg(sender_id, mes_texte) values('"+ 0 + "' ,'"+msg+"')");
 
     });
 });
