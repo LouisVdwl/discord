@@ -60,6 +60,11 @@ io.sockets.on('connection', function(socket){
         bdd.query("insert into dis_msg(sender_id, mes_texte) values('"+ 0 + "' ,'"+msg+"')");
 
     });
+
+    socket.on("demandeInscription", function(pseudo, mail, pass){
+        bdd.query("select count(*) from dis_user where mail like '" + mail + "'", function(err, result){
+        });
+    });
 });
 
 // Construteur de client

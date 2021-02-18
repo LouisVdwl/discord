@@ -17,15 +17,23 @@ return false;
 
 $(document).ready(function(){
     $("#submitInscription").click(function(e){
+        let status = true;
         e.preventDefault();
         // Validation double mdp
         if($("#pass1").val() != $("#pass2").val()){
+            status = false;
             alert("Les mot de passe ne correspondent pas cogno !");
         }
 
         // Validation email
         if(!ValidateEmail($("#mail").val())){
+            status = false;
             alert("Pas bon le mail là !");
         }
+
+        if(status){
+            socket.emit("demandeInscription", $("#pseudo"), $("#mail"), $("#pass1"));
+        }
+
     });
 });
