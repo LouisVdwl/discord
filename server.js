@@ -3,6 +3,7 @@ const finalhandler = require("finalhandler");
 const serveStatic = require("serve-static");
 var url = require('url');
 const mysql = require("mysql");
+var passwordHash = require('password-hash');
 // Liste des clients connectés
 let listeClients = [];
 
@@ -61,10 +62,29 @@ io.sockets.on('connection', function(socket){
 
     });
 
-    socket.on("demandeInscription", function(pseudo, mail, pass){
+    socket.on("demandeInscription", function(pseudo, mail, pass1){
         bdd.query("select count(*) from dis_user where mail like '" + mail + "'", function(err, result){
+            if(result[0]["count(*)"] == 0){
+                bdd.query("insert into dis_user(mail, password, pseudo) values('"+ mail +"','"+passwordHash.generate(pass1)+"','"+pseudo+"')");
+                socket.emit("statusInscription", true);
+            }else{
+                console.log("L'adresse mail est déjà utilisée !");
+                socket.emit("statusInscription", false);
+            }
         });
     });
+
+    socket.on("connexion", function(mail, password){
+        bdd.query("select password from dis_user where mail like '" + mail+"'", function(err, result){
+            let passResult = result[0].password;
+            if(passwordHash.verify(password, passResult)){
+                socket.emit("connexionStatus", true);
+            }else{
+                socket.emit("connexionStatus", false);
+            }
+        });
+        
+    })
 });
 
 // Construteur de client

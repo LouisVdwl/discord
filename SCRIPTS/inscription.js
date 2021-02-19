@@ -32,8 +32,17 @@ $(document).ready(function(){
         }
 
         if(status){
-            socket.emit("demandeInscription", $("#pseudo"), $("#mail"), $("#pass1"));
+            socket.emit("demandeInscription", $("#pseudo").val(), $("#mail").val(), $("#pass1").val());
         }
+
+        socket.on("statusInscription", function(status){
+            if(status){
+                alert("Inscription faite !");
+                window.location.href = "index.html";
+            }else{
+                alert("Adresse mail déjà utilisée !");
+            }
+        });
 
     });
 });
