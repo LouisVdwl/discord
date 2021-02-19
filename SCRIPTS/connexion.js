@@ -5,9 +5,11 @@ $(document).ready(function(){
         socket.emit("connexion", $("#mail").val(), $("#pass").val());
     });
 
-    socket.on("connexionStatus", function(status){
+    socket.on("connexionStatus", function(status, id, pseudo){
         if(status){
-            alert("Connexion...");
+            document.cookie = "id_user=" + id + "";
+            document.cookie = "pseudo=" + pseudo + "";
+            window.location.href = "discord.html";
         }else{
             alert("Mauvais mot de passe !");
         }

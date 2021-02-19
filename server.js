@@ -4,11 +4,6 @@ const serveStatic = require("serve-static");
 var url = require('url');
 const mysql = require("mysql");
 var passwordHash = require('password-hash');
-// Liste des clients connectés
-let listeClients = [];
-
-// Client sous forme d'objet
-const client = {};
 
 // Renvoie le contenu du dossier courant de facon statique
 const serve = serveStatic("./");
@@ -75,10 +70,10 @@ io.sockets.on('connection', function(socket){
     });
 
     socket.on("connexion", function(mail, password){
-        bdd.query("select password from dis_user where mail like '" + mail+"'", function(err, result){
+        bdd.query("select password, user_id, pseudo from dis_user where mail like '" + mail+"'", function(err, result){
             let passResult = result[0].password;
             if(passwordHash.verify(password, passResult)){
-                socket.emit("connexionStatus", true);
+                socket.emit("connexionStatus", true, result[0].user_id, result[0].pseudo);
             }else{
                 socket.emit("connexionStatus", false);
             }
@@ -86,11 +81,5 @@ io.sockets.on('connection', function(socket){
         
     })
 });
-
-// Construteur de client
-function Client(id, pseudo){
-    this.id = id;
-    this.pseudo = pseudo;
-}
 
 
