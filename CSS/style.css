@@ -93,3 +93,12 @@ textarea:focus{
     padding-left: 10px;
     color: white;
 }
+
+#rightPart .entete{
+    display: flex;
+    justify-content: space-between;
+}
+
+p{
+    color: white;
+}
