@@ -50,9 +50,9 @@ io.listen(server);
 // Connexion
 
 io.sockets.on('connection', function(socket){
-    socket.on("msg", function(msg, id){
-        socket.broadcast.emit("msg", msg);
-        socket.emit("msg", msg);
+    socket.on("msg", function(msg, id, pseudo){
+        socket.broadcast.emit("msg", msg, pseudo);
+        socket.emit("msg", msg, pseudo);
         bdd.query("insert into dis_msg(sender_id, mes_texte) values('"+ id + "' ,'"+msg+"')");
 
     });
@@ -78,8 +78,18 @@ io.sockets.on('connection', function(socket){
                 socket.emit("connexionStatus", false);
             }
         });
-        
-    })
+    });
+
+    socket.on("data", function(){
+        bdd.query("select m.mes_texte, u.pseudo from dis_msg as m inner join dis_user as u where u.user_id = m.sender_id limit 30", function(err, result){
+            socket.emit("dataReturn", result);
+            console.log(result);
+        });
+    });
+
+    socket.on("typing", function(pseudo){
+        socket.broadcast.emit("typing", pseudo);
+    });
 });
 
 

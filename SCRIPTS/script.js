@@ -1,16 +1,41 @@
 let socket = io.connect('http://localhost:8080');
 $(document).ready(function(){
+    socket.emit("data");
     $("#pseudoEntete").html("Connecté en tant que " + getCookie("pseudo"));
     $("#messageInput").keypress(function(e){
         if(e.which == 13 && e.shiftKey == false){
             e.preventDefault();
-            socket.emit("msg", $("#messageInput").val(), getCookie("pseudo"));
+            socket.emit("msg", $("#messageInput").val(), getCookie("id_user"), getCookie("pseudo"));
             $("#messageInput").val("");
         }
     });
-    socket.on("msg", function(msg){
-        $("#contentMessage").html($("#contentMessage").html() + "<p>" + getCookie("pseudo") + ": " + msg + "</p>");
+    socket.on("msg", function(msg, pseudo){
+        addMessage(pseudo, msg);
+        console.log(pseudo);
     });
+
+    socket.on("dataReturn", function(result){
+        result.forEach(function(elt){
+            addMessage(elt.pseudo, elt.mes_texte);
+        });
+    });
+
+    $('#messageInput').on('input', () => socket.emit("typing", getCookie("pseudo")));
+    socket.on("typing", function(pseudo){
+
+    });
+
+    var timer = null;
+    let typing = false;
+    $('#messageInput').keydown(function(){
+            typing = true;
+           clearTimeout(timer); 
+           timer = setTimeout(stopTyping(), 1000)
+    });
+    
+    function stopTyping() {
+        socket.emit("typing", getCookie("pseudo"));
+    }
 });
 
 function  getCookie(name){
@@ -28,4 +53,8 @@ function  getCookie(name){
       }
     }
     return null;
+  }
+
+  function addMessage(pseudo, msg){
+    $("#contentMessage").html($("#contentMessage").html() + "<p>" + pseudo + ": " + msg + "</p>");
   }

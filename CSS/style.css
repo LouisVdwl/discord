@@ -53,16 +53,18 @@ input{
 }
 
 #contentMessage{
-    height: 85vh;
+    height: 83vh;
     overflow-y: scroll;
     flex-direction: column;
     color: white;
 }
 
 #divInputMessage{
-    justify-content: center;
-    align-items: center;
+    display: flex;
     border-top: 1px solid rgb(87, 87, 87);
+    flex-direction: column;
+    justify-content: space-around;
+    padding-left: 10px;
 }
 
 #messageInput{
@@ -72,7 +74,7 @@ input{
     border-radius: 5px;
     width: 95%;
     border: unset;
-    height: 70%;
+    height: 60%;
     align-items: center;
 }
 
