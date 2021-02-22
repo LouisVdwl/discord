@@ -57,6 +57,7 @@ input{
     overflow-y: scroll;
     flex-direction: column;
     color: white;
+    scrollbar-color: rgb(29, 29, 29) #303030b2;
 }
 
 #divInputMessage{
@@ -104,3 +105,38 @@ textarea:focus{
 p{
     color: white;
 }
+
+.msgContainer{
+    flex-direction: column;
+    padding: 10px;
+}
+
+.msgContainer:hover{
+    background-color: #303030b2;
+}
+
+.msgContainer h3{
+    font-size: 15px;
+}
+
+.msgDateTime{
+    font-size: 12px;
+    color: grey;   
+    margin-left: 5px;
+}
+
+.msgEntete{
+    align-items: center;
+}
+
+.msg{
+    padding-top: 3px;
+    font-size: 14px;
+}
+
+.msgEntete h3:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+

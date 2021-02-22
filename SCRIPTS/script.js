@@ -56,5 +56,5 @@ function  getCookie(name){
   }
 
   function addMessage(pseudo, msg){
-    $("#contentMessage").html($("#contentMessage").html() + "<p>" + pseudo + ": " + msg + "</p>");
+    $("#contentMessage").html($("#contentMessage").html() + "<div class='msgContainer'><div class='msgEntete'><h3>"+pseudo+"</h3><p class='msgDateTime'>Aujourd'hui 10:30</p></div><p class='msg'>"+msg+"</p></div>");
   }
