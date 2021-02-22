@@ -81,7 +81,7 @@ io.sockets.on('connection', function(socket){
     });
 
     socket.on("data", function(){
-        bdd.query("select m.mes_texte, u.pseudo from dis_msg as m inner join dis_user as u where u.user_id = m.sender_id limit 30", function(err, result){
+        bdd.query("select m.mes_texte, u.pseudo, m.mes_date from dis_msg as m inner join dis_user as u where u.user_id = m.sender_id limit 30", function(err, result){
             socket.emit("dataReturn", result);
             console.log(result);
         });
